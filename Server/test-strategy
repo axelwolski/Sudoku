@@ -1,0 +1,40 @@
+#!/bin/sh
+SBCL_HOME=/usr/labri/idurand/local/bin
+CORE_DIR=/usr/labri/idurand/sudoku
+echo $#
+if [ $# -gt 2 -o $# = 0 ]
+then
+    echo "Usage: $(basename $0) strategy-name grid-file"
+    exit
+fi
+
+if [ $# = 2 ]
+then
+    GRID=$2
+    if [ ! -f $2 ]
+    then
+	echo grid $2 not found
+	exit
+    fi
+fi
+
+STRATEGY=$1
+
+if [ ! -f $1.lisp ]
+then
+    echo $1.lisp not found
+    exit
+fi
+
+if [ $# = 1 ]
+then
+    EXP="(prog1 (print (sudoku::test-all-grids \"$STRATEGY\")) (sb-ext:exit))"
+else
+    EXP="(prog1 (sudoku::test-one-grid \"$STRATEGY\" (sudoku::load-grid-from-file \"$GRID\")) (sb-ext:exit))"
+fi
+
+echo $EXP
+
+$SBCL_HOME/sbcl --noinform --core $CORE_DIR/test-one-strategy.core --eval "$EXP"
+
+
