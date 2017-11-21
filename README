@@ -1,9 +1,7 @@
-#2048
-
 Licence 3 - Projet de "programmation 3" en langage LISP
 Elaboration d'un sudoku et d'une IA pouvant le résoudre.
 
 Le code développé se situe dans "sudoku.lisp"
 Comment démarrer le sudoku :
-- Lancez SLIME
+- Lancez SLIME à l'aide de emacs
 - Compilez sudoku.lisp
